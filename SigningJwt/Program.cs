@@ -39,8 +39,9 @@ namespace SigningJwt
 
                 var rsaKey = RSA.Create();
 
-                rsaKey.FromXmlString()
-                RsaSecurityKey rsaSecurityKey = new RsaSecurityKey(RSA.Create());
+                rsaKey.FromXmlString(File.ReadAllText(privateKeyPath));
+                RsaSecurityKey rsaSecurityKey = new RsaSecurityKey(rsaKey);
+                SigningCredentials signingCredentials = new SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha384);
 
                 //// Verify the signature
                 //Console.WriteLine("\nVerifying signature with public key...");
